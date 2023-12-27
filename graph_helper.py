@@ -2,13 +2,14 @@ import pandas as pd
 import numpy as np
 import os
 import json
+import uuid
 from dotenv import load_dotenv
 from openai import OpenAI
 from langchain.chat_models import ChatOpenAI
 from langchain.schema import HumanMessage, SystemMessage
 
 
-def get_concepts(prompt:pd.DataFrame):
+def get_concepts(prompt:pd.DataFrame, chunk_id:uuid):
     print("POOOOOOOO")
     prompt = prompt[0]
     assert isinstance(prompt, str), "prompt must be a string"
@@ -53,6 +54,7 @@ def get_concepts(prompt:pd.DataFrame):
     response = chat(messages).content
     try:
         result = json.loads(response)
+        result = [dict(item, **chunk_id) for item in result]
     except:
         print("\n\nERROR ### Here is the buggy response: ", response, "\n\n")
         result = None
