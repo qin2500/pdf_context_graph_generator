@@ -9,7 +9,6 @@ from langchain.schema import HumanMessage, SystemMessage
 
 
 def get_concepts(prompt:pd.DataFrame):
-    print("POOOOOOOO")
     prompt = prompt[0]
     assert isinstance(prompt, str), "prompt must be a string"
     print(prompt)
