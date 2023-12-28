@@ -9,7 +9,7 @@ from langchain.chat_models import ChatOpenAI
 from langchain.schema import HumanMessage, SystemMessage
 
 
-def get_concepts(prompt:pd.DataFrame, chunk_id:uuid):
+def get_concepts(prompt:pd.DataFrame):
     print("POOOOOOOO")
     prompt = prompt[0]
     assert isinstance(prompt, str), "prompt must be a string"
@@ -54,7 +54,7 @@ def get_concepts(prompt:pd.DataFrame, chunk_id:uuid):
     response = chat(messages).content
     try:
         result = json.loads(response)
-        result = [dict(item, **chunk_id) for item in result]
+        result = [dict(item, **prompt[1]) for item in result]
     except:
         print("\n\nERROR ### Here is the buggy response: ", response, "\n\n")
         result = None
